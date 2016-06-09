@@ -16,32 +16,32 @@ import javax.swing.JPanel;
  */
 public class ImagePanel extends JPanel {
 
-    public static final double LEFT_ALIGN = 0;
-    public static final double CENTERED = 0.5;
-    public static final double RIGHT_ALIGN = 1;
+    public static final double MIN_ALIGN = 0;
+    public static final double CENTERED = 1;
+    public static final double MAX_ALIGN = 2;
 
     private BufferedImage image;
     private boolean scaled;
-    private boolean verticalAlignment;
-    private boolean horizontalAlignment;
+    private double verticalAlignment;
+    private double horizontalAlignment;
 
     public ImagePanel(BufferedImage image) {
         super();
         this.image = image;
         this.scaled = false;
-        this.verticalAlignment = false;
-        this.horizontalAlignment = false;
+        this.verticalAlignment = 0;
+        this.horizontalAlignment = 0;
     }
 
     public ImagePanel(BufferedImage image, boolean scaled) {
         super();
         this.image = image;
         this.scaled = scaled;
-        this.verticalAlignment = false;
-        this.horizontalAlignment = false;
+        this.verticalAlignment = 0;
+        this.horizontalAlignment = 0;
     }
 
-    public ImagePanel(BufferedImage image, boolean scaled, boolean verticalAlignment, boolean horizontalAlignment) {
+    public ImagePanel(BufferedImage image, boolean scaled, double verticalAlignment, double horizontalAlignment) {
         super();
         this.image = image;
         this.scaled = scaled;
@@ -57,19 +57,19 @@ public class ImagePanel extends JPanel {
         this.scaled = scaled;
     }
 
-    public boolean isVerticalAligned() {
+    public double isVerticalAligned() {
         return verticalAlignment;
     }
 
-    public void setVerticalAlignment(boolean verticalAlignment) {
+    public void setVerticalAlignment(double verticalAlignment) {
         this.verticalAlignment = verticalAlignment;
     }
 
-    public boolean isHorizontalAligned() {
+    public double isHorizontalAligned() {
         return horizontalAlignment;
     }
 
-    public void setHorizontalAlignment(boolean horizontalAlignment) {
+    public void setHorizontalAlignment(double horizontalAlignment) {
         this.horizontalAlignment = horizontalAlignment;
     }
 
@@ -83,12 +83,12 @@ public class ImagePanel extends JPanel {
 
         Image resizedImage = image.getScaledInstance((int) (image.getWidth() * factor), (int) (image.getHeight() * factor), BufferedImage.SCALE_SMOOTH);
 
-        if (this.horizontalAlignment) {
-            x = this.getX() + this.getWidth() / 2 - resizedImage.getWidth(null) / 2;
-        }
-        if (this.verticalAlignment) {
-            y = this.getY() + this.getHeight() / 2 - resizedImage.getHeight(null) / 2;
-        }
+        //if (this.horizontalAlignment) {
+            x = this.getX() + (int)((this.getWidth() / 2 - resizedImage.getWidth(null) / 2)*horizontalAlignment);
+        //}
+        //if (this.verticalAlignment) {
+            y = this.getY() + (int)((this.getHeight() / 2 - resizedImage.getHeight(null) / 2)*verticalAlignment);
+        //}
 
         g.drawImage(resizedImage, x, y, null);
     }
