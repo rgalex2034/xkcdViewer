@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
 
     public static final double MIN_ALIGN = 0;
-    public static final double CENTERED = 1;
-    public static final double MAX_ALIGN = 2;
+    public static final double CENTERED = 0.5;
+    public static final double MAX_ALIGN = 1;
 
     private BufferedImage image;
     private boolean scaled;
@@ -83,12 +83,8 @@ public class ImagePanel extends JPanel {
 
         Image resizedImage = image.getScaledInstance((int) (image.getWidth() * factor), (int) (image.getHeight() * factor), BufferedImage.SCALE_SMOOTH);
 
-        //if (this.horizontalAlignment) {
-            x = this.getX() + (int)((this.getWidth() / 2 - resizedImage.getWidth(null) / 2)*horizontalAlignment);
-        //}
-        //if (this.verticalAlignment) {
-            y = this.getY() + (int)((this.getHeight() / 2 - resizedImage.getHeight(null) / 2)*verticalAlignment);
-        //}
+        x = this.getX() + (int) ((this.getWidth() - resizedImage.getWidth(null)) * horizontalAlignment);
+        y = this.getY() + (int) ((this.getHeight() - resizedImage.getHeight(null)) * verticalAlignment);
 
         g.drawImage(resizedImage, x, y, null);
     }
@@ -103,7 +99,7 @@ public class ImagePanel extends JPanel {
         } else {
             factor = xScale;
         }
-        
+
         return factor;
     }
 
