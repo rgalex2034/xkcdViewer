@@ -81,7 +81,7 @@ public class ComicView extends javax.swing.JFrame implements ActionListener{
         this.jpanelImgContainer.removeAll();
         this.jpanelImgContainer.setLayout(new BorderLayout());
         if(comicImage!=null){
-            ImagePanel imgPanel = new ImagePanel(comicImage, true, true, true);
+            ImagePanel imgPanel = new ImagePanel(comicImage, true, ImagePanel.CENTERED, ImagePanel.CENTERED);
             this.jpanelImgContainer.add(imgPanel, BorderLayout.CENTER);
         }
     }
